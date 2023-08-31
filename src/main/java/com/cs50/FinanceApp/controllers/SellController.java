@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SellController {
 
-    @RequestMapping(value = "/sell", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/sell", method = {RequestMethod.POST})
     //@LoginRequired
     public String sell() {
         // Obsługa żądania GET lub POST pod adresem "/sell"
-        return "sell"; // Przykład nazwy widoku Thymeleaf lub FreeMarker
+        return "sell"; //
     }
 }

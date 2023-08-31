@@ -13,6 +13,8 @@ public class User {
     private String hash;
     private Float cash;
 
+    // lista purchases "one to many" private List purchases...
+
     // konstruktor bezparametrowy obsługiwany przez hibernate
     public User() {
     }

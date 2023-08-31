@@ -15,7 +15,7 @@ public class Purchases {
     private Integer shares;
     private Float price;
     // timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    // private String transaction_type - "sell" albo "buy";
+    // private String transaction_type - "sell" albo "buy"; ENUMERACJA
     // FOREIGN KEY (user_id) REFERENCES users (id)
 
     // konstruktor bezparametrowy
