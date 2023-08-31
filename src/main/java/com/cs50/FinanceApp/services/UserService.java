@@ -12,6 +12,7 @@ public class UserService {
     //final wymusza podanie wartości, której nie zmieniam
     private final UserRepository userRepository;
 
+    // PurchaseRepo...
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -31,4 +32,6 @@ public class UserService {
             return userEntity;
         }
     }
+
+    //
 }

@@ -18,6 +18,7 @@ public class UserController {
     }
 
     // /user/1 => chcemy pobrać użytkownika o identyfikatorze 1;
+
     // /user?userId=1 =>
     @GetMapping(value = "/user/{userId}")
     public User getUser(@PathVariable Long userId){
