@@ -2,6 +2,8 @@ package com.cs50.FinanceApp.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -13,7 +15,9 @@ public class User {
     private String hash;
     private Float cash;
 
-    // lista purchases "one to many" private List purchases...
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Purchases> purchases;
+
 
     // konstruktor bezparametrowy obsługiwany przez hibernate
     public User() {

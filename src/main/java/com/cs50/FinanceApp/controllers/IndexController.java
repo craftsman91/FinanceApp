@@ -14,8 +14,6 @@ public class IndexController {
         return new IndexResponse("mstf", 2); // Przykład nazwy widoku Thymeleaf lub FreeMarker
         // json powinien zwracać klasę  {symbol: msft, shares: 2,}
     }
-
-
 }
 
 class IndexResponse {
@@ -27,6 +25,4 @@ class IndexResponse {
         this.symbol = symbol;
         this.shares = shares;
     }
-
-
 }
