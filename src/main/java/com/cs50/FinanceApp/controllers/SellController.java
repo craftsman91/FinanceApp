@@ -1,25 +1,33 @@
 package com.cs50.FinanceApp.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import com.cs50.FinanceApp.services.SellService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/sell")
 public class SellController {
 
-    // Metoda wyświetlająca formularz sprzedaży
-    @GetMapping
-    public String showSellForm(Model model) {
-        // Wypełnij model danymi potrzebnymi do wyświetlenia formularza
-        return "sellForm";
+    private final SellService sellService;
+
+    @Autowired
+    public SellController(SellService sellService) {
+        this.sellService = sellService;
     }
 
-    // Metoda obsługująca sprzedaż akcji
     @PostMapping
-    public String sellStock(@RequestParam("symbol") String symbol, @RequestParam("shares") int shares) {
-        // Tutaj przetwarzaj dane z formularza, waliduj i dokonuj sprzedaży
-        // Aktualizuj stan konta użytkownika i historię transakcji
-        return "redirect:/"; // Przekierowanie na stronę główną po sprzedaży
+    public ResponseEntity<String> sellStock(@RequestBody SellRequest sellRequest) {
+        try {
+            // Wywołaj serwis SellService do obsługi sprzedaży
+            sellService.sellStock(sellRequest);
+            return ResponseEntity.ok("Stock sold successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

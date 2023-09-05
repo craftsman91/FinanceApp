@@ -1,16 +1,22 @@
 package com.cs50.FinanceApp.controllers;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/history") // Endpoint
 public class HistoryController {
 
-    @GetMapping("/history")
-    // @LoginRequired
-    public String history() {
-        // Obsługa żądania GET pod adresem "/history"
+    @GetMapping
+    // @LoginRequired - Jeśli masz autentykację
+    public TransactionHistory getHistory() {
+        // Tutaj możesz pobrać dane z bazy danych lub innych źródeł
+        TransactionHistory history = new TransactionHistory();
+        history.setQuantity(10); // Ustaw dane z historii transakcji
+        history.setDate("2023-08-28");
+        history.setCost(500.0);
 
-        return "history"; // Przykład nazwy widoku Thymeleaf lub FreeMarker
+        return history;
     }
 }
