@@ -12,6 +12,6 @@ public class BuyController {
     public String buy() {
         // Obsługa żądania GET lub POST pod adresem "/buy"
         return "buy";
-        //
+
     }
 }

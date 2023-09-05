@@ -1,5 +1,6 @@
 package com.cs50.FinanceApp.controllers;
 
+import com.cs50.FinanceApp.model.Purchases;
 import com.cs50.FinanceApp.services.SellService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +22,15 @@ public class SellController {
     }
 
     @PostMapping
-    public ResponseEntity<String> sellStock(@RequestBody SellRequest sellRequest) {
+    public ResponseEntity<Purchases> sellStock(@RequestBody SellRequest sellRequest) {
         try {
             // Wywołaj serwis SellService do obsługi sprzedaży
-            sellService.sellStock(sellRequest);
-            return ResponseEntity.ok("Stock sold successfully");
+            Purchases purchases = sellService.sellStock(sellRequest);
+            return ResponseEntity.ok(purchases);
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
 }

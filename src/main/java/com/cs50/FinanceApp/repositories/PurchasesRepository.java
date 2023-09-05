@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface PurchasesRepository extends CrudRepository<Purchases, Long> {
 
+    List<Purchases> findByUserIdAndSymbol(Long userId, String symbol);
+
+    //
 
     // odpowiednik pythonowego db.execute -> pobiera informacje z bazy danych
     // brak operacji -> implementacja sql
