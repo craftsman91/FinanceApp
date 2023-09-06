@@ -1,5 +1,6 @@
 package com.cs50.FinanceApp.controllers;
 
+// analogia do html'owego formularza
 public class SellRequest {
 
     // obiekt typu immutable
@@ -19,9 +20,13 @@ public class SellRequest {
         return shares;
     }
 
+    // ustawione do testów
     public void setShares(int sharesToSell) {
+
     }
 
+    //ustawione do testów
     public void setSymbol(String symbol) {
+
     }
 }

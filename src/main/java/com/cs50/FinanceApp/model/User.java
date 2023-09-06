@@ -45,6 +45,7 @@ public class User {
         return cash;
     }
 
-    public void setCash(float v) {
+    public void setCash(float newCash) {
+        this.cash = newCash;
     }
 }
