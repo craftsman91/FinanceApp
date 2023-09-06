@@ -11,7 +11,7 @@ public class Purchases {
     private Long iD;
 
     @Column(name = "user_id", insertable = false, updatable = false)
-    private Integer userId;
+    private Long userId;
     private String symbol;
     private Integer shares;
     private Float price;
@@ -28,7 +28,7 @@ public class Purchases {
     public Purchases() {
     }
 
-    public Purchases(Integer userId, String symbol, Integer shares, Float price, TransactionType transactionType) {
+    public Purchases(Long userId, String symbol, Integer shares, Float price, TransactionType transactionType) {
         this.userId = userId;
         this.symbol = symbol;
         this.shares = shares;
@@ -40,7 +40,7 @@ public class Purchases {
         return iD;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 

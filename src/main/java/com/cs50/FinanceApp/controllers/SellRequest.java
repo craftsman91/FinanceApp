@@ -19,5 +19,9 @@ public class SellRequest {
         return shares;
     }
 
-    // stworzyć post reque
+    public void setShares(int sharesToSell) {
+    }
+
+    public void setSymbol(String symbol) {
+    }
 }

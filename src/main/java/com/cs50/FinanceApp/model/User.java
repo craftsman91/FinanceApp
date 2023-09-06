@@ -44,4 +44,7 @@ public class User {
     public Float getCash() {
         return cash;
     }
+
+    public void setCash(float v) {
+    }
 }

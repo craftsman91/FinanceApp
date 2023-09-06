@@ -28,23 +28,57 @@ public class SellService {
 
         float price = 1F; // price na sztywno - zastąpić np. YahooApi.price(symbol);
 
-        // pobrać z repo wszystkie transakcje dokonane przez użytkownika
-        // for each po purchases, suma wszystkich purchases, availableShares > shares, jeżeli nie throw exception (zbyt mała ilość akcji,czy coś w tym stylu);
-        // walidacja SellRequest a SellRepository -> czy zgadza się np. symbol, a później czy mamy wystarczającą ilość shares, itp.
-        // jeśli wszystko jest ok, to tworzymy new Purchases...
+//        Purchases purchases = new Purchases(userId, sellRequest.getSymbol(), sellRequest.getShares(), price, TransactionType.SELL);
+//
+//        Purchases savedPurchase = purchasesRepository.save(purchases);
+//        return savedPurchase;
 
+        // Pobieranie użytkownika z bazy danych
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Użytkownik nie istnieje"));
 
-        Purchases purchases = new Purchases(1, sellRequest.getSymbol(), sellRequest.getShares(), price, TransactionType.SELL);
+        // Pobieranie wszystkich transakcji zakupu użytkownika
+        Iterable<Purchases> userPurchases = purchasesRepository.findByUserIdAndSymbol(userId,sellRequest.getSymbol());
 
-        // Zaktualizać saldo użytkownika
-        // Dodać rekord do purchasesRepository z odpowiednim typem transakcji (TransactionType.SELL)
+        // Obliczanie dostępnych akcji użytkownika
+        int availableShares = calculateAvailableShares(userPurchases, sellRequest.getSymbol());
 
-        Purchases savedPurchase = purchasesRepository.save(purchases);
-        return savedPurchase;
+        // Sprawdzanie, czy użytkownik ma wystarczającą ilość akcji do sprzedaży
+        if (availableShares < sellRequest.getShares()) {
+            throw new IllegalArgumentException("Nie masz wystarczająco dużo akcji do sprzedaży");
+        }
 
-        // TODO: skrypt / test do automatycznego uzupełniania danych w db
+        // Obliczanie wartości transakcji
+        float totalValue = price * sellRequest.getShares();
+
+        // Aktualizacja stanu konta użytkownika i zapisanie nowej transakcji
+        user.setCash(user.getCash() + totalValue);
+        Purchases newPurchase = new Purchases(
+                userId,
+                sellRequest.getSymbol(),
+                -sellRequest.getShares(),
+                price,
+                TransactionType.SELL
+        );
+        purchasesRepository.save(newPurchase);
+        userRepository.save(user);
+
+        return newPurchase;
     }
 
+    private int calculateAvailableShares(Iterable<Purchases> purchases, String symbol) {
+        int availableShares = 0;
+        for (Purchases purchase : purchases) {
+            if (purchase.getSymbol().equals(symbol)) {
+                availableShares += purchase.getShares();
+            }
+        }
+        return availableShares;
+    }
 
+// TODO: skrypt / test do automatycznego uzupełniania danych w db
 
 }
+
+
+
+
